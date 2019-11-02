@@ -12,6 +12,26 @@ export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
+      const populate = async () => {
+        await PetTypesModel.bulkCreate([
+          {
+            name: 'Perro',
+          },
+          {
+            name: 'Gato',
+          },
+          {
+            name: 'Conejo',
+          },
+          {
+            name: 'Tortuga',
+          },
+          {
+            name: 'Ave',
+          },
+        ]);
+      };
+
       const sequelize = new Sequelize({
         dialect: 'mysql',
         host: 'localhost',
@@ -31,6 +51,7 @@ export const databaseProviders = [
         MessagesModel,
       ]);
       await sequelize.sync({ force: true });
+      await populate();
       return sequelize;
     },
   },

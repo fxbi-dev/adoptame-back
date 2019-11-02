@@ -23,7 +23,7 @@ export class UserConfigModel extends Model<UserConfigModel> {
   distance: number;
 
   @BelongsToMany(() => PetTypesModel, () => UserPetPreferenceModel)
-  pets: PetTypesModel[];
+  petsPreference: PetTypesModel[];
 }
 
 export const USER_CONFIG_PROVIDER = 'USER_CONFIG_PROVIDER';

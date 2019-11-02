@@ -4,6 +4,7 @@ import {
   ForeignKey,
   PrimaryKey,
   Column,
+  AutoIncrement,
 } from 'sequelize-typescript';
 import { PetTypesModel } from '../pets/petTypes.model';
 import { UserConfigModel } from './userConfig.model';
@@ -14,6 +15,7 @@ import { UserConfigModel } from './userConfig.model';
 })
 export class UserPetPreferenceModel extends Model<UserPetPreferenceModel> {
   @PrimaryKey
+  @AutoIncrement
   @Column({
     unique: true,
   })
