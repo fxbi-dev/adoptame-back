@@ -6,7 +6,7 @@ import { GenericPagedDTO } from '../generics/genericPaged.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('pets')
-// @ApiUseTags('Pets')
+@ApiUseTags('Pets')
 export class PetsController {
   constructor(private readonly petsService: PetsService) {}
 

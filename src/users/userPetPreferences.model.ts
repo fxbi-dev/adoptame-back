@@ -20,7 +20,7 @@ export class UserPetPreferenceModel extends Model<UserPetPreferenceModel> {
   id: number;
 
   @ForeignKey(() => UserConfigModel)
-  userId: number;
+  userConfigId: number;
 
   @ForeignKey(() => PetTypesModel)
   petTypeId: number;

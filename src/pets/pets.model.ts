@@ -4,8 +4,12 @@ import {
   Column,
   ForeignKey,
   BelongsTo,
+  HasMany,
+  DataType,
 } from 'sequelize-typescript';
 import { UsersModel } from '../users/users.model';
+import { SwipesModel } from '../swipes/swipes.model';
+import { PetTypesModel } from './petTypes.model';
 
 @Table({
   tableName: 'pets',
@@ -19,6 +23,12 @@ export class PetsModel extends Model<PetsModel> {
   @BelongsTo(() => UsersModel)
   owner: UsersModel;
 
+  @ForeignKey(() => PetTypesModel)
+  typeId: number;
+
+  @BelongsTo(() => PetTypesModel)
+  type: PetTypesModel;
+
   @Column({
     allowNull: false,
   })
@@ -27,7 +37,7 @@ export class PetsModel extends Model<PetsModel> {
   @Column({
     allowNull: false,
   })
-  edad: string;
+  age: number;
 
   @Column({
     allowNull: false,
@@ -36,8 +46,17 @@ export class PetsModel extends Model<PetsModel> {
 
   @Column({
     allowNull: false,
+    type: DataType.GEOMETRY('POINT', 0),
+  })
+  location: GeoJSON.Point;
+
+  @Column({
+    allowNull: false,
   })
   adopted: boolean;
+
+  @HasMany(() => SwipesModel)
+  swipes: SwipesModel[];
 }
 
 export const PETS_PROVIDER = 'PETS_PROVIDER';

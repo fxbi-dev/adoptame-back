@@ -14,11 +14,11 @@ import { PetsModel } from '../pets/pets.model';
   paranoid: true,
 })
 export class SwipesModel extends Model<SwipesModel> {
-  @ForeignKey(() => UsersModel)
-  originalOwnerId: number;
+  // @ForeignKey(() => UsersModel)
+  // originalOwnerId: number;
 
-  @BelongsTo(() => UsersModel)
-  originalOwner: UsersModel;
+  // @BelongsTo(() => UsersModel)
+  // originalOwner: UsersModel;
 
   @ForeignKey(() => UsersModel)
   adopterId: number;
@@ -29,14 +29,15 @@ export class SwipesModel extends Model<SwipesModel> {
   @ForeignKey(() => PetsModel)
   petId: number;
 
-  @Column({
-    allowNull: false,
-  })
-  like: boolean;
+  @BelongsTo(() => PetsModel)
+  pet: PetsModel;
 
   @Column({
     allowNull: false,
   })
+  liked: boolean;
+
+  @Column
   accepted: boolean;
 }
 

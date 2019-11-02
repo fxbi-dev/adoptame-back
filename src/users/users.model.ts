@@ -51,7 +51,6 @@ export class UsersModel extends Model<UsersModel> {
   birthDate: string;
 
   @Column({
-    allowNull: false,
     type: DataType.STRING(36),
   })
   picture: string;

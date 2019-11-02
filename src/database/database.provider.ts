@@ -30,7 +30,7 @@ export const databaseProviders = [
         SwipesModel,
         MessagesModel,
       ]);
-      await sequelize.sync();
+      await sequelize.sync({ alter: true });
       return sequelize;
     },
   },
