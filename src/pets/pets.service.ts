@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { PETS_PROVIDER } from './pets.model';
 import { PetsModel } from '../../server/pets/pets.model';
+import { NewPetDTO } from './dto/newPet.dto';
 
 @Injectable()
 export class PetsService {
@@ -14,6 +15,14 @@ export class PetsService {
       },
       offset: (page - 1) * perPage,
       limit: perPage,
+    });
+  }
+
+  async createPet(userId: number, newPet: NewPetDTO) {
+    return this.Pets.create({
+      ...newPet,
+      ownerId: userId,
+      adopted: false,
     });
   }
 }

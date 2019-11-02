@@ -13,8 +13,8 @@ export class SwipesService {
   async getBatch(userId: number, lat: number, lng: number) {
     const point = `POINT(${lng} ${lat})`;
     const query = `
-    Select f1.* from (
-      Select * from pets where ownerId <> :id
+    Select f1.id from (
+      Select id from pets where ownerId <> :id
     ) as f1 inner join (
     select p.id from pets p where p.typeId in (
         select pt.id from pettypes pt
@@ -45,23 +45,42 @@ export class SwipesService {
       type: QueryTypes.SELECT,
     });
 
-    return cards;
+    // return cards;
 
     // Randomly select 10
-    const selected = [];
+    let selected: any[];
+    const selectedIds: number[] = [];
     if (cards.length > 10) {
+      selected = [];
       for (let i = 0; i < 10; i++) {
         const index = Math.min(
           Math.floor(Math.random() * cards.length),
           cards.length - 1,
         );
-        const random = cards.splice(index, 1)[0];
-        selected.push(random);
+        const random = cards.splice(index, 1)[0] as any;
+        selectedIds.push(random.id);
       }
+      selected = await this.Pets.findAll({
+        where: {
+          id: {
+            $in: selectedIds,
+          },
+        },
+      });
     }
 
     return selected || cards;
   }
 
-  async createSwipe(userId: number, petId: number, liked: boolean) {}
+  async createSwipe(userId: number, petId: number, liked: boolean) {
+    const newSwipe = await this.Swipes.create({
+      adopterId: userId,
+      petId,
+      liked,
+    });
+
+    // Here goes that firebase thing
+
+    return newSwipe;
+  }
 }
