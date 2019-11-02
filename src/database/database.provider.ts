@@ -5,6 +5,8 @@ import { PetPicturesModel } from '../pets/petPictures.model';
 import { PetTypesModel } from '../pets/petTypes.model';
 import { UserConfigModel } from '../users/userConfig.model';
 import { UserPetPreferenceModel } from '../users/userPetPreferences.model';
+import { SwipesModel } from '../swipes/swipes.model';
+import { MessagesModel } from '../chat/messages.model';
 
 export const databaseProviders = [
   {
@@ -25,8 +27,10 @@ export const databaseProviders = [
         PetsModel,
         PetPicturesModel,
         PetTypesModel,
+        SwipesModel,
+        MessagesModel,
       ]);
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
       return sequelize;
     },
   },
