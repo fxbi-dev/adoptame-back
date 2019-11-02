@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { UsersModel, USERS_PROVIDER } from '../users/users.model';
 import { sha256 } from 'js-sha256';
 import { JwtService } from '@nestjs/jwt';
+import { DecodedJwt } from './dto/decodedJwt.dto';
 
 @Injectable()
 export class AuthService {
@@ -46,7 +47,7 @@ export class AuthService {
     return jwt;
   }
 
-  async validateUser(decodedJwt: any): Promise<any> {
+  async validateUser(decodedJwt: DecodedJwt): Promise<DecodedJwt> {
     return decodedJwt;
   }
 }
