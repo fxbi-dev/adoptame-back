@@ -46,7 +46,7 @@ export class PetsModel extends Model<PetsModel> {
 
   @Column({
     allowNull: false,
-    type: DataType.GEOMETRY('POINT', 0),
+    type: DataType.GEOMETRY('POINT', 4326),
   })
   location: GeoJSON.Point;
 

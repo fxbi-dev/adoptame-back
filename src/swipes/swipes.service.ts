@@ -13,17 +13,20 @@ export class SwipesService {
   async getBatch(userId: number, lat: number, lng: number) {
     const point = `POINT(${lng} ${lat})`;
     const query = `
-    Select f1.id from (
-      Select id from pets where ownerId <> :id
+    Select f1.*, f3.distance from (
+      Select * from pets where ownerId <> :id
     ) as f1 inner join (
     select p.id from pets p where p.typeId in (
         select pt.id from pettypes pt
         inner join userpetpreference u on pt.id = u.petTypeId
-        inner join userconfig u2 on u.userId = u2.id
+        inner join userconfig u2 on u.userConfigId = u2.id
         where u2.userId = :id
         )
     ) as f2 on f1.id = f2.id inner join (
-        select p.id
+        select p.id,
+        ST_DISTANCE_SPHERE(
+          p.location,
+          st_geomfromtext(:point)) as distance
         from pets p
         where
         ST_DISTANCE_SPHERE(
@@ -49,7 +52,6 @@ export class SwipesService {
 
     // Randomly select 10
     let selected: any[];
-    const selectedIds: number[] = [];
     if (cards.length > 10) {
       selected = [];
       for (let i = 0; i < 10; i++) {
@@ -58,15 +60,8 @@ export class SwipesService {
           cards.length - 1,
         );
         const random = cards.splice(index, 1)[0] as any;
-        selectedIds.push(random.id);
+        selected.push(random);
       }
-      selected = await this.Pets.findAll({
-        where: {
-          id: {
-            $in: selectedIds,
-          },
-        },
-      });
     }
 
     return selected || cards;
