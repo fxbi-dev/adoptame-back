@@ -39,6 +39,9 @@ export class SwipesModel extends Model<SwipesModel> {
 
   @Column
   accepted: boolean;
+
+  @Column
+  channelId: string;
 }
 
 export const SWIPES_PROVIDER = 'SWIPES_PROVIDER';
