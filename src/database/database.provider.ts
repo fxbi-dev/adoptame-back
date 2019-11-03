@@ -34,10 +34,10 @@ export const databaseProviders = [
 
       const sequelize = new Sequelize({
         dialect: 'mysql',
-        host: 'localhost',
+        host: 'ec2-13-59-129-27.us-east-2.compute.amazonaws.com',
         port: 3306,
-        username: 'root',
-        password: 'ErizO321456',
+        username: 'adoptame',
+        password: '123456qwerty',
         database: 'adoptame',
       });
       sequelize.addModels([
@@ -50,8 +50,8 @@ export const databaseProviders = [
         SwipesModel,
         MessagesModel,
       ]);
-      await sequelize.sync({ force: true });
-      await populate();
+      // await sequelize.sync({ force: true });
+      // await populate();
       return sequelize;
     },
   },
