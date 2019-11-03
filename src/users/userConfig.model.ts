@@ -10,7 +10,7 @@ import { PetTypesModel } from '../pets/petTypes.model';
 import { UserPetPreferenceModel } from './userPetPreferences.model';
 
 @Table({
-  tableName: 'userConfig',
+  tableName: 'userconfig',
   timestamps: true,
 })
 export class UserConfigModel extends Model<UserConfigModel> {

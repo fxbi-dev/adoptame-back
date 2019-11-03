@@ -8,7 +8,7 @@ import {
 import { PetsModel } from './pets.model';
 
 @Table({
-  tableName: 'petPictures',
+  tableName: 'petpictures',
   paranoid: true,
   timestamps: true,
 })
